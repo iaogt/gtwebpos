@@ -13,5 +13,5 @@ set_include_path(get_include_path().PATH_SEPARATOR.$path.'/libs/HTML_Template_Si
 set_include_path(get_include_path().PATH_SEPARATOR.$path.'/libs/Doctrine-1.2.4');			//Agrega el directorio modelo para hacer acceso directo de sus clases sin necesidad de referencia directa
 
 ini_set("display_errors", "On");
-error_reporting(E_ALL);
+error_reporting(E_ALL & ~E_STRICT);
 ?>

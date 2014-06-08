@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #################
 ## Eclipse
 #################
@@ -217,4 +218,6 @@ pip-log.txt
 #MIOS
 libs/
 modelo\conf.php
+=======
+>>>>>>> 6920235f8f60d6934f0587bad8695da8ce42e2fe
 modelo/conf.php
