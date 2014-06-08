@@ -115,8 +115,8 @@
       	<div style="text-align:right" id="cobraFactura">
       	<form>
       		<label>Total:</label><input name="total" id="txtTotalFac" readonly="readonly" style="text-align:right"/><br/>
-      		<label>Efectivo:</label><input name="efectivo" id="txtEfectivoFac" style="text-align:right" onkeydown="return calculaVuelto(event);"/><br/>
-      		<label>Vuelto:</label><input name="vuelto" id="txtVueltoFac" readonly="readonly" style="text-align:right"/><br/>
+      		<!--label>Efectivo:</label><input name="efectivo" id="txtEfectivoFac" style="text-align:right" onkeydown="return calculaVuelto(event);"/><br/>
+      		<label>Vuelto:</label><input name="vuelto" id="txtVueltoFac" readonly="readonly" style="text-align:right"/><br/-->
       	</form>
       	</div>
       	<div id="numFactura" style="display:none;text-align:center;" align="center">
@@ -128,6 +128,72 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-primary" id="btnCrearFactura">Facturar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="cantProdFac" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Cantidad</h4>
+      </div>
+      <div class="modal-body">
+      	<div class="row">
+      		<div class="col-md-6">
+      		<input type="hidden" id="iposprod" value="0"/>
+      		<label id="lblProducto"></label>
+      		<label>Cantidad:</label><input id="noLblProducto"/>
+      		</div>
+      		<div class="col-md-6">
+	      		<div class="row">
+	      			<div class="col-md-4">
+	      			<button class="btn btn-default btn-lg tecladoNum">7</button>
+	      			</div>
+	      			<div class="col-md-4">
+	      			<button class="btn btn-default btn-lg tecladoNum">8</button>
+	      			</div>
+	      			<div class="col-md-4">
+	      			<button class="btn btn-default btn-lg tecladoNum">9</button>
+	      			</div>
+	      		</div>
+	      		<div class="row">
+	      			<div class="col-md-4">
+	      			<button class="btn btn-default btn-lg tecladoNum">4</button>
+	      			</div>
+	      			<div class="col-md-4">
+	      			<button class="btn btn-default btn-lg tecladoNum">5</button>
+	      			</div>
+	      			<div class="col-md-4">
+	      			<button class="btn btn-default btn-lg tecladoNum">6</button>
+	      			</div>
+	      		</div>
+	      		<div class="row">
+	      			<div class="col-md-4">
+	      			<button class="btn btn-default btn-lg tecladoNum">1</button>
+	      			</div>
+	      			<div class="col-md-4">
+	      			<button class="btn btn-default btn-lg tecladoNum">2</button>
+	      			</div>
+	      			<div class="col-md-4">
+	      			<button class="btn btn-default btn-lg tecladoNum">3</button>
+	      			</div>
+	      		</div>
+	      		<div class="row">
+	      			<div class="col-md-4">
+	      			<button class="btn btn-default btn-lg tecladoNum">.</button>
+	      			</div>
+	      			<div class="col-md-4">
+	      			<button class="btn btn-default btn-lg tecladoNum">0</button>
+	      			</div>
+	      		</div>
+      		</div>
+      	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="btnOkCantidad">Ok</button>
       </div>
     </div>
   </div>
