@@ -5,7 +5,7 @@
 	$info = $_GET['m'];
 	
 	switch($info){
-		case "producto":{
+		case "producto":{ 
 			$id = $_GET['id'];
 			$obj = Doctrine_Core::getTable('products')->find($id);
 			if($obj){
@@ -16,11 +16,14 @@
 		
 		case "listproductos":{
 			$p= isset($_GET['p']) ? intval($_GET['p']) : 0;
+			$q = Doctrine_Manager::getInstance()->connection();
+			$datos = $q->execute('SET CHARSET utf8');
         	$q = new Doctrine_Query();
         	$arrProductos = $q->select('id,name,category,pricesell,code,taxcat')
         	->from('PRODUCTS p')
         	->orderBy('category,name,code')
         	->execute(array(), Doctrine::HYDRATE_ARRAY);
+			header('Content-type: application/json');
 			echo json_encode($arrProductos);
 			break;
 		}

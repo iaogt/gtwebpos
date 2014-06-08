@@ -158,7 +158,7 @@ function cargaProductos(){
 		}else{
 			$('#pgSig').css('display','block');
 		}
-	},'json');
+	});
 }
 
 function poblarProductos(data){
@@ -265,12 +265,12 @@ function crearFactura(){
 	var tot = $('#txtTotalFac').val();
 	$.post('api.php?m=crearfactura',{"prods":arrVenta,"total":tot},function(data){
 		if(data){
-			$('#nFac').html(data.ticket);
+			$('#nFac').html(data['ticket']);
 			$('#cobraFactura').css('display','none');
 			$('#numFactura').css('display','block');
 			$('#loaderFactura').css('display','none');
 		}
-	});
+	},'json');
 }
 
 function limpiaTodo(){

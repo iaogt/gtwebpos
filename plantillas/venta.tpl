@@ -1,7 +1,7 @@
 	   <!-- DataTables CSS -->
-	   <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.0/css/jquery.dataTables.css">
+	   <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
 	   <!-- DataTables -->
-	   <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
+	   <script type="text/javascript" charset="utf8" src="js/jquery.dataTables.js"></script>
        <script src="js/venta.js" type="text/javascript"></script>
     <div id="bmenu" class="row">
         <div id="menuHeader">
@@ -119,8 +119,8 @@
       		<label>Vuelto:</label><input name="vuelto" id="txtVueltoFac" readonly="readonly" style="text-align:right"/><br/>
       	</form>
       	</div>
-      	<div id="numFactura" style="display:none">
-      		<p id="nFac" style="color:#f00;font-size:30px;display:none;"></p>
+      	<div id="numFactura" style="display:none;text-align:center;" align="center">
+      		<p id="nFac" style="color:#f00;font-size:30px;"></p>
       		<button type="button" class="btn btn-primary" id="btnCerrarFactura">Ok</button>
       	</div>
       	<img src="images/ajax-loader.gif" id="loaderFactura" style="display:none"/>
