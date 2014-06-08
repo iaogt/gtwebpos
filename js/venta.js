@@ -8,7 +8,7 @@ $(document).ready(function(){
 	cargaProductos();
 });
 
-function agregarProducto(e){
+function bqProducto(e){
 	if(e.keyCode==13){		//Si presiona el enter
 		for(i=0;i<listProductos.length;i++){
 			if(listProductos[i].code==$('#txtCodigo').val()){
@@ -75,7 +75,7 @@ function personalizaInterfaz(){
 	})
 	$('#btnCerrarFactura').click(function(){
 		$('#numFactura').css('display','none');
-		$('#cobrarFactura').css('display','block');
+		$('#cobraFactura').css('display','block');
 		$('#afacturar').modal('hide');
 		$('#loaderFactura').css('display','none');
 		limpiaTodo();

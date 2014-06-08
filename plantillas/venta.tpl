@@ -40,7 +40,7 @@
 			<div id="codigo" class="row">
 				<div class="col-md-6">
 					<label for="txtCodigo">Codigo:</label>
-					<input type="text" id="txtCodigo" onkeydown="return agregarProducto(event);">
+					<input type="text" id="txtCodigo" onkeydown="return bqProducto(event);">
 				</div>
 				<div class="col-md-6" style="text-align:right">
 					<label for="totalFactura">Total:</label>
