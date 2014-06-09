@@ -144,7 +144,7 @@
       		<div class="col-md-6">
       		<input type="hidden" id="iposprod" value="0"/>
       		<label id="lblProducto"></label>
-      		<label>Cantidad:</label><input id="noLblProducto"/>
+      		<label>Cantidad:</label><input id="noLblProducto" value="1"/>
       		</div>
       		<div class="col-md-6">
 	      		<div class="row">
@@ -186,6 +186,9 @@
 	      			</div>
 	      			<div class="col-md-4">
 	      			<button class="btn btn-default btn-lg tecladoNum">0</button>
+	      			</div>
+	      			<div class="col-md-4">
+	      			<button class="btn btn-default btn-lg" id="btnBorrar"><-</button>
 	      			</div>
 	      		</div>
       		</div>

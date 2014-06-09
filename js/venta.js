@@ -123,6 +123,16 @@ function personalizaInterfaz(){
 		addLinea(listProductos[i].name,1,precio,i,cantidad);
 		$('#txtCodigo').val('');
 		$('#cantProdFac').modal('hide');
+		$('#noLblProducto').val('1');
+	});
+	$('#btnBorrar').click(function(){
+		var txt = $('#noLblProducto').val();
+		if(txt.length>1){
+			txt = txt.substr(0,txt.length-1);
+		}else{
+			txt='';
+		}
+		$('#noLblProducto').val(txt);
 	});
 }
 
