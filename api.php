@@ -1,6 +1,8 @@
 <?php
+	ob_start();
 	require_once('appConf.php');
 	require_once('data/Modelo.php');
+	ob_end_clean();
 	
 	$info = $_GET['m'];
 	
@@ -55,7 +57,7 @@
 			
 			$receipts = new receipts;
 			$receipts->id = $arrDate[0];
-			$receipts->money='f85e8e23-7bcb-4192-ba37-9c16d9184423';		//ID de cierre de caja
+			$receipts->money=$_POST['cajero'];		//ID de cierre de caja
 			$receipts->datenew = new Doctrine_Expression('NOW()'); 
 			$receipts->save();
 			
@@ -63,7 +65,8 @@
 			$objPay->id = 'p'.$arrDate[0];
 			$objPay->receipt = $receipts->id;
 			$objPay->payment = 'cash';
-			$objPay->total = $total;
+			$objPay->total = 0;//$total;
+			$objPay->temptotal = $total;	//Este es el total mientras no se recibe el dinero, luego se traslada
 			$objPay->transid = 'no ID';
 			$objPay->save();
 			

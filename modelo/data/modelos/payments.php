@@ -6,6 +6,7 @@
 			$this->hasColumn('receipt','string',255,array('type'=>'string','length'=>255));
 			$this->hasColumn('payment','string',255);
 			$this->hasColumn('total','float');
+			$this->hasColumn('temptotal','float');
 			$this->hasColumn('transid','string',255);
 			$this->hasColumn('returnmsg','blob'); 
 		}

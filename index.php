@@ -14,7 +14,7 @@
 	$vista->assign_template("plantillas/layout.tpl");
 	
 	$vista = new Pagina($vista,"contenido");
-	$vista->assign_template("plantillas/venta.tpl");
+	$vista->assign_template("plantillas/venta2.tpl");
 	
 	$objModelo = new Modelo();
 	
@@ -50,5 +50,14 @@
 	}else{
 		$vista->tpl->touchBlock('noproducto');
 	}
-		echo $vista->show();
+	
+	$arrCajeros = $objModelo->getCajeros();
+	if($arrCajeros){
+		foreach($arrCajeros as $c){
+			$vista->tpl->setVariable('idCajero',$c['money']);
+			$vista->tpl->setVariable('nombreCajero',$c['host']);
+		}
+	}
+	
+	echo $vista->show();
 ?>

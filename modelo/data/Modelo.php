@@ -72,5 +72,18 @@
 			$arrDatos = $datos->fetchAll();
 			return $arrDatos;
 		}
+		
+		public function getCajeros(){
+			$q = Doctrine_Query::create()->select('*')->from('closedcash');
+			$cajeros = $q->execute(array(),Doctrine::HYDRATE_ARRAY);
+			return $cajeros;
+		}
+		
+		public function getPendientes(){
+			$q = Doctrine_Manager::getInstance()->connection();
+			$datos = $q->execute("SELECT t.ticketid id,r.datenew fecha, p.temptotal total, c.host cajero,pe.name vendedor FROM receipts r JOIN tickets t ON r.id = t.id JOIN closedcash c on r.money = c.money JOIN payments p on p.receipt = r.id JOIN people pe on pe.id = t.person");
+			$arrDatos = $datos->fetchAll();
+			return $arrDatos;
+		}
 	}
 ?>

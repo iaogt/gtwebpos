@@ -1,6 +1,7 @@
 var listaVenta;	
 var listProductos;
 var arrVenta = [];	//Listado de los ID de los productos que está comprando
+var txtCodigo="";
 
 $(document).ready(function(){
 	personalizaInterfaz();
@@ -11,14 +12,24 @@ $(document).ready(function(){
 function bqProducto(e){
 	if(e.keyCode==13){		//Si presiona el enter
 		for(i=0;i<listProductos.length;i++){
-			if(listProductos[i].code==$('#txtCodigo').val()){
+			if(listProductos[i].code==txtCodigo){
 				$('#iposprod').val(i);
-				$('#lblProducto').html(listProductos[i].name);
-				$('#cantProdFac').modal('show');
+				$('#lblProducto').html(listProductos[i].name); 
+				if($('#preguntar').is(':checked')){
+					$('#cantProdFac').modal('show');
+				}else{
+					crearLineaProd(1);
+				}
 				i=listProductos.length;
+				txtCodigo="";
 			}
 		}
-		
+		if(txtCodigo!=""){
+			alert('Producto no reconocido: '+txtCodigo);
+			txtCodigo="";
+		}
+	}else{
+		txtCodigo=txtCodigo+String.fromCharCode(e.keyCode);
 	}
 }
 
@@ -118,12 +129,7 @@ function personalizaInterfaz(){
 	});
 	$('#btnOkCantidad').click(function(){
 		var cantidad = parseFloat($('#noLblProducto').val());
-		var i = $('#iposprod').val();
-		var precio = parseFloat(listProductos[i].pricesell);
-		addLinea(listProductos[i].name,1,precio,i,cantidad);
-		$('#txtCodigo').val('');
-		$('#cantProdFac').modal('hide');
-		$('#noLblProducto').val('1');
+		crearLineaProd(cantidad);
 	});
 	$('#btnBorrar').click(function(){
 		var txt = $('#noLblProducto').val();
@@ -134,6 +140,18 @@ function personalizaInterfaz(){
 		}
 		$('#noLblProducto').val(txt);
 	});
+	$('body').keypress(function(e){
+		bqProducto(e);
+	});
+}
+
+function crearLineaProd(canti){
+	var i = $('#iposprod').val();
+	var precio = parseFloat(listProductos[i].pricesell);
+	addLinea(listProductos[i].name,1,precio,i,canti);
+	$('#txtCodigo').val('');
+	$('#cantProdFac').modal('hide');
+	$('#noLblProducto').val('1');
 }
 
 function creaTabla(){
@@ -289,7 +307,8 @@ function calculaVuelto(e){
 function crearFactura(){
 	$('#loaderFactura').css('display','block');
 	var tot = $('#txtTotalFac').val();
-	$.post('api.php?m=crearfactura',{"prods":arrVenta,"total":tot},function(data){
+	var cajero = $('#nomCajero').val();
+	$.post('api.php?m=crearfactura',{"prods":arrVenta,"total":tot,"cajero":cajero},function(data){
 		if(data){
 			$('#nFac').html(data['ticket']);
 			$('#cobraFactura').css('display','none');
