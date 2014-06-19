@@ -79,9 +79,13 @@
 			return $cajeros;
 		}
 		
-		public function getPendientes(){
+		public function getPendientes($tid=""){
 			$q = Doctrine_Manager::getInstance()->connection();
-			$datos = $q->execute("SELECT t.id tid,t.ticketid id,r.datenew fecha, p.temptotal total, c.host cajero,pe.name vendedor,r.id recibo FROM receipts r JOIN tickets t ON r.id = t.id JOIN closedcash c on r.money = c.money JOIN payments p on p.receipt = r.id JOIN people pe on pe.id = t.person WHERE p.temptotal<>p.total");
+			$condicion="WHERE payment like 'pendiente'";
+			if($tid!=""){
+				$condicion="WHERE t.ticketid = ".$tid;
+			}
+			$datos = $q->execute("SELECT t.id tid,t.ticketid id,r.datenew fecha, p.temptotal total, c.host cajero,pe.name vendedor,r.id recibo FROM receipts r JOIN tickets t ON r.id = t.id JOIN closedcash c on r.money = c.money JOIN payments p on p.receipt = r.id JOIN people pe on pe.id = t.person ".$condicion);
 			$arrDatos = $datos->fetchAll();
 			return $arrDatos;
 		}

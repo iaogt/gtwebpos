@@ -18,7 +18,11 @@
 	
 	$objModelo = new Modelo();
 	
-	$arrPendientes = $objModelo->getPendientes();
+	$tid ="";
+	if(@$_POST['nticket'])
+		$tid=$_POST['nticket'];
+	
+	$arrPendientes = $objModelo->getPendientes($tid);
 	if($arrPendientes){
 		foreach($arrPendientes as $p){
 			$vista->tpl->setVariable('id',$p['id']);

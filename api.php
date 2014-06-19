@@ -64,7 +64,7 @@
 			$objPay = new payments;
 			$objPay->id = 'p'.$arrDate[0];
 			$objPay->receipt = $receipts->id;
-			$objPay->payment = 'cash';
+			$objPay->payment = 'pendiente';
 			$objPay->total = 0;//$total;
 			$objPay->temptotal = $total;	//Este es el total mientras no se recibe el dinero, luego se traslada
 			$objPay->transid = 'no ID';
@@ -111,7 +111,7 @@
 			if(count($arrImpuestos)>0){
 				foreach($arrImpuestos as $imp){
 					$objTax = new taxlines;
-					$objTax->id = 't'.$arrDate[0];
+					$objTax->id = 't'.$arrDate[0].rand();
 					$objTax->receipt = $receipts->id;
 					$objTax->taxid = $imp['id'];
 					$objTax->base = $total;
@@ -130,17 +130,28 @@
 		}
 
 		case "detalleProds":{
-			$ticketid = $_POST['ticketid'];
+			$ticketid = $_GET['ticketid'];
 			if($ticketid){
 				$q = new Doctrine_Query();
 				$q = Doctrine_Manager::getInstance()->connection();				
-				$arrLineas = $q->execute("SELECT p.name nom, t.units,t.price precio FROM ticketlines t join products p on t.product = p.id WHERE t.ticket like '".$ticketid."'");
+				$arrLineas = $q->execute("SELECT p.name nom, t.units,t.price precio,ti.ticketid tid FROM ticketlines t join products p on t.product = p.id join tickets ti ON ti.id = t.ticket WHERE t.ticket like '".$ticketid."'");
+				echo '<h1>Mia Secret</h1>';
 				echo '<table role="table">';
 				echo '<thead><tr><th>Cantidad</th><th>Producto</th><th>Precio</th></tr></thead>';
+				$id=0;
+				$suma=0;
 				foreach($arrLineas as $linea){
+					$suma = $linea['precio']; 
+					$id = $linea['tid'];
 					echo '<tr><td align="center">'.$linea['units'].'</td><td>'.$linea['nom'].'</td><td>'.$linea['precio'].'</td></tr>';
 				}
+				echo '<tr><td></td><td>Total:</td><td>'.$suma.'</td></tr>';
 				echo '</table>';
+				echo '<p>TICKET:'.$id.'</p>';
+				echo '<p>Gracias por su compra</p>';
+				if(@$_GET['imprimir']==1){
+					echo '<script>window.print();</script>';
+				}
 			}
 			break;
 		} 
@@ -151,6 +162,7 @@
 			if($idrecibo>0){
 				$objPayment = Doctrine_Core::getTable('payments')->findByDql('receipt like ?',$idrecibo);
 				foreach($objPayment as $obj){
+					$obj->payment='cash';
 					$obj->total = $obj->temptotal;
 					$obj->save();
 				}

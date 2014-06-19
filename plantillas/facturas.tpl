@@ -1,4 +1,4 @@
-<form role="form"> 
+<form role="form" method="post" action="ventas.php"> 
 	<label>No. Ticket</label><input name="nticket"/>
 	<button>Buscar</button>
 </form>
@@ -30,7 +30,7 @@
       </div>
       <div class="modal-body">
       	<input type="hidden" id="idticketnum"/>
-      	<div style="text-align:right" id="cobraFactura">
+      	<div style="text-align:right;max-height:400px;overflow:scroll;" id="cobraFactura">
       	
       	</div>
       	<div id="numFactura" style="display:none;text-align:center;" align="center">
@@ -41,6 +41,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-default" id="btnImprimir">Imprimir</button>
         <button type="button" class="btn btn-primary" id="btnCrearFactura">Pagada</button>
       </div>
     </div>
@@ -48,11 +49,12 @@
 </div>
 <script type="text/javascript">
 	$(document).ready(function(){
+
 		$('.idfac').click(function(){
 			$('#afacturar').modal('show');
 			var tid = $(this).attr('title');
 			$('#idticketnum').val(tid);
-			$.post('api.php?m=detalleProds',{"ticketid":tid},function(data){
+			$.get('api.php?m=detalleProds',{"ticketid":tid},function(data){
 				if(data){
 					$('#cobraFactura').html(data);
 				}
@@ -65,11 +67,15 @@
 				$.post('api.php?m=pagar',{"receipt":tid},function(data){
 					if(data){
 							$('#afacturar').modal('toggle');
+							location.reload();
 					}else{
 						alert('No se pudo ejecutar operación');
 					}
 				});
 			}
+		});
+		$('#btnImprimir').click(function(){
+			window.open('api.php?m=detalleProds&ticketid='+$('#idticketnum').val()+'&imprimir=1','_blank','toolbar=no,titlebar=no,resizable=no,height=300px,width=400px,fullscreen=no,left=200px');
 		});
 	});
 </script>

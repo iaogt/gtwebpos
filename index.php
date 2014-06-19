@@ -56,6 +56,7 @@
 		foreach($arrCajeros as $c){
 			$vista->tpl->setVariable('idCajero',$c['money']);
 			$vista->tpl->setVariable('nombreCajero',$c['host']);
+			$vista->tpl->parse('blqCajero');
 		}
 	}
 	
