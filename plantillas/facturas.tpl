@@ -15,7 +15,7 @@
 	<tbody>
 	<!-- BEGIN blqPendiente -->
 		<tr>
-			<td><a class="idfac" href="#">{id}</a></td><td>{vendedor}</td><td></td><td>{fecha}</td><td>Q. {total}</td>
+			<td><a class="idfac" href="#" title="{ticketid}">{id}</a></td><td>{vendedor}</td><td></td><td>{fecha}</td><td>Q. {total}</td>
 		</tr>
 	<!-- END blqPendiente -->
 	</tbody>
@@ -29,6 +29,7 @@
         <h4 class="modal-title" id="myModalLabel">A pagar</h4>
       </div>
       <div class="modal-body">
+      	<input type="hidden" id="idticketnum"/>
       	<div style="text-align:right" id="cobraFactura">
       	
       	</div>
@@ -48,12 +49,26 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.idfac').click(function(){
-			$('#afacturar').modal();
+			$('#afacturar').modal('show');
+			var tid = $(this).attr('title');
+			$('#idticketnum').val(tid);
+			$.post('api.php?m=detalleProds',{"ticketid":tid},function(data){
+				if(data){
+					$('#cobraFactura').html(data);
+				}
+			},'html');
 		});
 		$('#btnCrearFactura').click(function(){
 			var a = confirm('¿El cliente pagó?','Si','No');
+			var tid = $('#idticketnum').val();
 			if(a){
-				
+				$.post('api.php?m=pagar',{"receipt":tid},function(data){
+					if(data){
+							$('#afacturar').modal('toggle');
+					}else{
+						alert('No se pudo ejecutar operación');
+					}
+				});
 			}
 		});
 	});

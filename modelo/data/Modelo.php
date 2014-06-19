@@ -81,7 +81,7 @@
 		
 		public function getPendientes(){
 			$q = Doctrine_Manager::getInstance()->connection();
-			$datos = $q->execute("SELECT t.ticketid id,r.datenew fecha, p.temptotal total, c.host cajero,pe.name vendedor FROM receipts r JOIN tickets t ON r.id = t.id JOIN closedcash c on r.money = c.money JOIN payments p on p.receipt = r.id JOIN people pe on pe.id = t.person");
+			$datos = $q->execute("SELECT t.id tid,t.ticketid id,r.datenew fecha, p.temptotal total, c.host cajero,pe.name vendedor,r.id recibo FROM receipts r JOIN tickets t ON r.id = t.id JOIN closedcash c on r.money = c.money JOIN payments p on p.receipt = r.id JOIN people pe on pe.id = t.person WHERE p.temptotal<>p.total");
 			$arrDatos = $datos->fetchAll();
 			return $arrDatos;
 		}

@@ -128,6 +128,38 @@
 			echo $arrData[0]['attributes'];*/
 			break;
 		}
+
+		case "detalleProds":{
+			$ticketid = $_POST['ticketid'];
+			if($ticketid){
+				$q = new Doctrine_Query();
+				$q = Doctrine_Manager::getInstance()->connection();				
+				$arrLineas = $q->execute("SELECT p.name nom, t.units,t.price precio FROM ticketlines t join products p on t.product = p.id WHERE t.ticket like '".$ticketid."'");
+				echo '<table role="table">';
+				echo '<thead><tr><th>Cantidad</th><th>Producto</th><th>Precio</th></tr></thead>';
+				foreach($arrLineas as $linea){
+					echo '<tr><td align="center">'.$linea['units'].'</td><td>'.$linea['nom'].'</td><td>'.$linea['precio'].'</td></tr>';
+				}
+				echo '</table>';
+			}
+			break;
+		} 
+
+		case "pagar":{
+			$resultado='{resultado:"no"}';
+			$idrecibo = $_POST['receipt'];
+			if($idrecibo>0){
+				$objPayment = Doctrine_Core::getTable('payments')->findByDql('receipt like ?',$idrecibo);
+				foreach($objPayment as $obj){
+					$obj->total = $obj->temptotal;
+					$obj->save();
+				}
+				$resultado = '{resultado:"ok"}';
+			}
+			echo $resultado;
+			break;
+		}
+
 	}
 	
 ?>

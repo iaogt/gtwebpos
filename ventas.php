@@ -22,6 +22,7 @@
 	if($arrPendientes){
 		foreach($arrPendientes as $p){
 			$vista->tpl->setVariable('id',$p['id']);
+			$vista->tpl->setVariable('ticketid',$p['tid']);
 			$vista->tpl->setVariable('vendedor',$p['vendedor']);
 			$vista->tpl->setVariable('fecha',$p['fecha']);
 			$vista->tpl->setVariable('total',$p['total']);
