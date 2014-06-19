@@ -135,23 +135,51 @@
 				$q = new Doctrine_Query();
 				$q = Doctrine_Manager::getInstance()->connection();				
 				$arrLineas = $q->execute("SELECT p.name nom, t.units,t.price precio,ti.ticketid tid FROM ticketlines t join products p on t.product = p.id join tickets ti ON ti.id = t.ticket WHERE t.ticket like '".$ticketid."'");
-				echo '<h1>Mia Secret</h1>';
-				echo '<table role="table">';
-				echo '<thead><tr><th>Cantidad</th><th>Producto</th><th>Precio</th></tr></thead>';
+				$imprimir = (@$_GET['imprimir']==1) ? true : false;
+				if($imprimir){
+?>
+	<style type="text/css">
+		body{
+			font-family:Arial;
+			font-size:10px;
+		}
+		th{
+			font-size:10px;
+			border-bottom:1px solid #000;
+		}
+		td {
+			font-size:10px;
+		}
+		table {
+			border:1px solid #000;
+			border-width:1px 0;
+		}
+	</style>
+<?php
+				}
+				echo '<div style="width:200px;">';
+				echo '<div align="center"><img src="images/zz.jpg"/></div>';
+				echo '<p align="center">Guatemala <br/> Belleza Total</p>';
+				echo '<br/><br/><table role="table">';
+				echo '<thead><tr><th>Qty.</th><th>Producto</th><th>Precio</th></tr></thead>';
+				echo '<tbody>';
 				$id=0;
 				$suma=0;
 				foreach($arrLineas as $linea){
-					$suma = $linea['precio']; 
+					$suma = $suma+$linea['precio']; 
 					$id = $linea['tid'];
-					echo '<tr><td align="center">'.$linea['units'].'</td><td>'.$linea['nom'].'</td><td>'.$linea['precio'].'</td></tr>';
+					echo '<tr><td align="center">'.$linea['units'].'</td><td>'.$linea['nom'].'</td><td style="text-align:right;">Q. '.$linea['precio'].'</td></tr>';
 				}
-				echo '<tr><td></td><td>Total:</td><td>'.$suma.'</td></tr>';
+				echo '</tbody>';
 				echo '</table>';
-				echo '<p>TICKET:'.$id.'</p>';
-				echo '<p>Gracias por su compra</p>';
+				echo '<br/><br/><p>TOTAL: Q. '.$suma.'</p>';
+				echo '<br/><p>TICKET No.:'.$id.'</p><br/><br/>';
+				echo '<p align="center">Este no es un documento contable</p>';
+				echo '<p align="center">Gracias por su compra</p>';
 				if(@$_GET['imprimir']==1){
 					echo '<script>window.print();</script>';
 				}
+				echo '</div>';
 			}
 			break;
 		} 
