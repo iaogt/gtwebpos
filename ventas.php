@@ -33,6 +33,8 @@
 			$vista->tpl->setVariable('total',$p['total']);
 			$vista->tpl->parse("blqPendiente");
 		}
+	}else{
+		$vista->tpl->touchBlock('blqNoHay');
 	}
 	
 	echo $vista->show();

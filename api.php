@@ -158,8 +158,10 @@
 <?php
 				}
 				echo '<div style="width:200px;">';
+				if($imprimir){
 				echo '<div align="center"><img src="images/zz.jpg"/></div>';
 				echo '<p align="center">Guatemala <br/> Belleza Total</p>';
+				}
 				echo '<br/><br/><table role="table">';
 				echo '<thead><tr><th>Qty.</th><th>Producto</th><th>Precio</th></tr></thead>';
 				echo '<tbody>';
@@ -174,9 +176,9 @@
 				echo '</table>';
 				echo '<br/><br/><p>TOTAL: Q. '.$suma.'</p>';
 				echo '<br/><p>TICKET No.:'.$id.'</p><br/><br/>';
-				echo '<p align="center">Este no es un documento contable</p>';
-				echo '<p align="center">Gracias por su compra</p>';
 				if(@$_GET['imprimir']==1){
+					echo '<p align="center">Este no es un documento contable</p>';
+					echo '<p align="center">Gracias por su compra</p>';
 					echo '<script>window.print();</script>';
 				}
 				echo '</div>';

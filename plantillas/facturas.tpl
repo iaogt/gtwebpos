@@ -18,6 +18,9 @@
 			<td><a class="idfac" href="#" title="{ticketid}">{id}</a></td><td>{vendedor}</td><td>{cajero}</td><td>{fecha}</td><td>Q. {total}</td>
 		</tr>
 	<!-- END blqPendiente -->
+	<!-- BEGIN blqNoHay -->
+		<tr><td colspan="5">No hay compras pendientes</td></tr>
+	<!-- END blqNoHay -->
 	</tbody>
 </table>
         					<!-- Modal -->
@@ -30,7 +33,7 @@
       </div>
       <div class="modal-body">
       	<input type="hidden" id="idticketnum"/>
-      	<div style="text-align:right;max-height:400px;overflow:scroll;" id="cobraFactura">
+      	<div style="max-height:400px;overflow:scroll;" align="center" id="cobraFactura">
       	
       	</div>
       	<div id="numFactura" style="display:none;text-align:center;" align="center">
@@ -51,6 +54,7 @@
 	$(document).ready(function(){
 
 		$('.idfac').click(function(){
+			$('#cobraFactura').html('');
 			$('#afacturar').modal('show');
 			var tid = $(this).attr('title');
 			$('#idticketnum').val(tid);
