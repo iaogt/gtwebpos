@@ -41,7 +41,7 @@ function addLinea(nombre,lacantidad,precio,posicion,quantity){
 	if(cantidad>0){
 		listaVenta.row.add([nombre,cantidad,precio,cantidad*precio]).draw();
 		var total = parseFloat($('#totalFactura').val());
-		var subtotal = cantidad*precio;
+		var subtotal = cantidad*precio; 
 		$('#totalFactura').val(total+subtotal);
 		var objProd = listProductos[posicion];
 		var arrData = [objProd.id,cantidad,precio,objProd.taxcat];
@@ -314,6 +314,7 @@ function crearFactura(){
 			$('#cobraFactura').css('display','none');
 			$('#numFactura').css('display','block');
 			$('#loaderFactura').css('display','none');
+			arrVenta=[];
 		}
 	},'json');
 }

@@ -40,9 +40,9 @@
       		<p id="nFac" style="color:#f00;font-size:30px;"></p>
       		<button type="button" class="btn btn-primary" id="btnCerrarFactura">Ok</button>
       	</div>
-      	<img src="images/ajax-loader.gif" id="loaderFactura" style="display:none"/>
       </div>
       <div class="modal-footer">
+      	<img src="images/ajax-loader.gif" id="loaderFactura" style="display:none"/>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-default" id="btnImprimir">Imprimir</button>
         <button type="button" class="btn btn-primary" id="btnCrearFactura">Pagada</button>
@@ -58,9 +58,11 @@
 			$('#afacturar').modal('show');
 			var tid = $(this).attr('title');
 			$('#idticketnum').val(tid);
+			$('#loaderFactura').css('display','block');
 			$.get('api.php?m=detalleProds',{"ticketid":tid},function(data){
 				if(data){
 					$('#cobraFactura').html(data);
+					$('#loaderFactura').css('display','none');
 				}
 			},'html');
 		});
@@ -68,10 +70,11 @@
 			var a = confirm('¿El cliente pagó?','Si','No');
 			var tid = $('#idticketnum').val();
 			if(a){
+				$('#loaderFactura').css('display','block');
 				$.post('api.php?m=pagar',{"receipt":tid},function(data){
 					if(data){
-							$('#afacturar').modal('toggle');
-							location.reload();
+						$('#afacturar').modal('toggle');
+						location.reload();
 					}else{
 						alert('No se pudo ejecutar operación');
 					}
