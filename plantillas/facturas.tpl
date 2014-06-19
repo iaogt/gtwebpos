@@ -7,7 +7,7 @@
 		<tr>
 			<th>ID</th>
 			<th>Vendedor</th>
-			<th># Productos</th>
+			<th>Cajero</th>
 			<th>Fecha</th>
 			<th>Total</th>
 		</tr>
@@ -15,7 +15,7 @@
 	<tbody>
 	<!-- BEGIN blqPendiente -->
 		<tr>
-			<td><a class="idfac" href="#" title="{ticketid}">{id}</a></td><td>{vendedor}</td><td></td><td>{fecha}</td><td>Q. {total}</td>
+			<td><a class="idfac" href="#" title="{ticketid}">{id}</a></td><td>{vendedor}</td><td>{cajero}</td><td>{fecha}</td><td>Q. {total}</td>
 		</tr>
 	<!-- END blqPendiente -->
 	</tbody>
